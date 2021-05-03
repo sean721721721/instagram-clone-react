@@ -1,21 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Post from './Post';
-
 import './App.css';
+import { db } from './firebase';
 
 function App() {
-  const [posts, setPosts] = useState([
-    {
-      username: 'kevin',
-      caption: 'wow it works',
-      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png' 
-    },
-    {
-      username: 'John',
-      caption: 'wow it works',
-      imageUrl: 'https://res.cloudinary.com/practicaldev/image/fetch/s--wCGgterD--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://www.freecodecamp.org/news/content/images/size/w2000/2020/02/Ekran-Resmi-2019-11-18-18.08.13.png' 
-    },
-  ]);
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    db.collection('posts').onSnapshot((snapshot) => {
+      // every time a new post is added, this code fires ...
+      setPosts(snapshot.docs.map((doc) => ({
+        id: doc.id,
+        post: doc.data(),
+      })));
+    });
+  }, [posts]);
 
   return (
     <div className="app">
@@ -27,8 +26,8 @@ function App() {
         />
       </div>
       {
-        posts.map((post) => (
-          <Post username={post.username} caption={post.caption} imageUrl={post.imageUrl} />
+        posts.map(({ id, post }) => (
+          <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl} />
         ))
       }
     </div>
