@@ -22,5 +22,7 @@ module.exports = {
     'react/prop-types': 0,
     'consistent-return': 0,
     'no-shadow': 0,
+    'object-curly-newline': 0,
+    'no-unused-vars': ['warn'],
   },
 };

@@ -193,34 +193,40 @@ function App() {
       </div>
 
       <div className="app__posts">
-        {
-        posts.map(({ id, post }) => (
-          <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl} />
-        ))
-      }
-      </div>
-      <div className="app__postsRight">
-        <InstagramEmbed
-          url="https://instagr.am/p/Zw9o4/"
-          clientAccessToken="123|456"
-          maxWidth={320}
-          hideCaption={false}
-          containerTagName="div"
-          protocol=""
-          injectScript
-          onLoading={() => {
-            console.log('onLoading');
-          }}
-          onSuccess={() => {
-            console.log('onSuccess');
-          }}
-          onAfterRender={() => {
-            console.log('onAfterRender');
-          }}
-          onFailure={() => {
-            console.log('failure');
-          }}
-        />
+        <div className="app__postsLeft">
+          {posts.map(({ id, post }) => (
+            <Post
+              key={id}
+              postId={id}
+              user={user}
+              username={post.username}
+              caption={post.caption}
+              imageUrl={post.imageUrl}
+            />
+          ))}
+        </div>
+        <div className="app__postsRight">
+          <InstagramEmbed
+            url="https://www.instagram.com/p/B_uf9dmAGPw/"
+            maxWidth={320}
+            hideCaption={false}
+            containerTagName="div"
+            protocol=""
+            injectScript
+            onLoading={() => {
+              console.log('onLoading');
+            }}
+            onSuccess={() => {
+              console.log('onSuccess');
+            }}
+            onAfterRender={() => {
+              console.log('onAfterRender');
+            }}
+            onFailure={() => {
+              console.log('failure');
+            }}
+          />
+        </div>
       </div>
 
       {user?.displayName ? (

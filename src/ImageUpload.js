@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable no-console */
 import { Button } from '@material-ui/core';
 import React, { useState, useRef } from 'react';
